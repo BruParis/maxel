@@ -3,7 +3,7 @@ from pathlib import Path
 from sympy import symbols, pprint, simplify, factor, together
 
 from maxel.common import A261886_FP
-from maxel.series import load_and_assign_to
+from maxel.sequences import load_and_assign_to
 from maxel.matrix import matrix_from_func, EMatrixType
 
 

@@ -7,7 +7,10 @@ name = "maxel"
 version = "0.1.0"
 dependencies = [
     "click",
-    "sympy"
+    "tqdm",
+    "numpy",
+    "sympy",
+    "jupyterlab"
 ]
 
 [tool.setuptools]

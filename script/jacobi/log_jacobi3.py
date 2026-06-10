@@ -1,5 +1,6 @@
 import click
 from sympy import pprint, simplify, factorial, factor, pretty, RisingFactorial
+from sympy import symbols as sym
 from itertools import product
 
 from maxel.matrix import matrix_from_str, matrix_from_func, EMatrixType, symbols
@@ -7,7 +8,9 @@ from maxel.matrix import matrix_from_str, matrix_from_func, EMatrixType, symbols
 
 @click.command()
 @click.argument("n", type=int)
-def main(n):
+@click.option("--mu", type=int, default=None)
+@click.option("--nu", type=int, default=None)
+def main(n, mu, nu):
 
     def func_expr(i, j):
         poly_mu = f"RisingFactorial(mu+{j+1},{i-j})/factorial(i-j)"
@@ -18,6 +21,7 @@ def main(n):
 
     matrix = matrix_from_func(func_expr, EMatrixType.LOWER, n)
     matrix = matrix.applyfunc(factor)
+    print("JACOBI maxel")
     pprint(matrix)
 
     def func_expr(i, j):
@@ -42,6 +46,21 @@ def main(n):
     aux_matrix = diag_1 * matrix * diag_2.inv()
     aux_matrix = aux_matrix.applyfunc(factor)
     pprint(aux_matrix)
+
+    if mu is not None or nu is not None:
+        mu_sym, nu_sym = sym("mu nu")
+        subs = {}
+        if mu is not None:
+            subs[mu_sym] = mu
+        if nu is not None:
+            subs[nu_sym] = nu
+        aux_matrix = aux_matrix.subs(subs)
+        aux_matrix = aux_matrix.applyfunc(factor)
+        print(f"EVALUATED ({', '.join(f'{k}={v}' for k, v in subs.items())})")
+        pprint(aux_matrix)
+        # Evaluating with mu=0, nu=0 returns the even columns
+        # (starting at 0) of the Harriot-Pascal matrix !
+        exit()
 
     print("LOG MATRIX")
     log_matrix = aux_matrix.log()
@@ -81,4 +100,4 @@ def main(n):
 
 
 if __name__ == "__main__":
-    main()
+    main()  # type: ignore[call-arg]

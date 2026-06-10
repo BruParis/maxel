@@ -13,7 +13,7 @@ from sympy import (
 from sympy.parsing.sympy_parser import parse_expr
 
 from maxel.common import A027614_FP
-from maxel.series import load_and_assign_to
+from maxel.sequences import load_and_assign_to
 from maxel.matrix import matrix_from_str, matrix_from_func, EMatrixType
 
 

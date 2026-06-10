@@ -3,7 +3,7 @@ from pathlib import Path
 from sympy import symbols, pprint, simplify, factor, together
 
 from maxel.common import A027614_FP
-from maxel.series import load_and_assign_to
+from maxel.sequences import load_and_assign_to
 from maxel.matrix import matrix_from_str, matrix_from_func, EMatrixType
 
 
@@ -11,11 +11,11 @@ from maxel.matrix import matrix_from_str, matrix_from_func, EMatrixType
 # triangular matrix with the following formula:
 # ...
 # Taking the exponential of this matrix yields
-# ... 
+# ...
 @click.command()
 @click.argument("n", type=int)
-def main(n: int):
-    x, y = symbols("x, y")
+def cli(n: int):
+    # x, _ = symbols("x, y")
     list_a = symbols(",".join([f"a{i}" for i in range(n)]))
 
     dict_a = load_and_assign_to(Path(A027614_FP), list_a)
@@ -46,9 +46,9 @@ def main(n: int):
     diag_factorial_inv = diag_factorial.inv()
     aux_matrix = diag_factorial * exp_matrix * diag_factorial_inv
     aux_matrix = aux_matrix.applyfunc(factor)
-    print(f" -> diag_i! * _ * diag_1/i!")
+    print(" -> diag_i! * _ * diag_1/i!")
     pprint(aux_matrix)
 
 
 if __name__ == "__main__":
-    main()
+    cli()  # type: ignore[call-arg]
