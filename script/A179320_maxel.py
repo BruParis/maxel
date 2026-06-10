@@ -3,7 +3,7 @@ from pathlib import Path
 from sympy import symbols, pprint, simplify, factor, together
 
 from maxel.common import A179320_FP
-from maxel.series import load_and_assign_to
+from maxel.sequences import load_and_assign_to
 from maxel.matrix import matrix_from_func, EMatrixType
 
 
@@ -12,7 +12,30 @@ from maxel.matrix import matrix_from_func, EMatrixType
 # (j+1)*a(i-j)/(i-j)!
 # Taking the exponential of this matrix yields
 # The odd columns of the pascal triangle (column indexed from 0)
-# rectified to make a lower triangular matrix
+# "rectified" (jth odd column shifted up by2 *)
+# to make a lower triangular matrix
+# ((i+j)+1)
+# (  2j+1 )
+# Explaination:
+# A179320 is the infinitesimal generator (column 0 of the matrix logarithm)
+# of the Riordan array A078812, in the Riordan group Lie algebra.
+#
+# The Riordan Lie algebra has the property that column j of log(M)
+# is fully determined by column 0, via:
+#
+#   log(M)[i][j] = (j+1) * a(i-j) / (i-j)!
+#
+# where a(n) = A179320(n) are the EGF coefficients.
+#
+# Exponentiating recovers the Riordan array A078812:
+#
+#   exp(L)[i][j] = C(i+j+1, 2j+1)
+#
+# which is the j-th odd Pascal column C(n, 2j+1), shifted up by j rows
+# to fill the lower-triangular structure (n = i+j+1 instead of n = 2j+1+i).
+#
+# In short:  A179320  =  log(A078812)  in the Riordan Lie algebra.
+
 @click.command()
 @click.argument("n", type=int)
 def main(n: int):
