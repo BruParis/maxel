@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maxel"
+version = "0.1.0"
+dependencies = [
+    "click",
+    "sympy"
+]
+
+[tool.setuptools]
+packages = ["maxel"]

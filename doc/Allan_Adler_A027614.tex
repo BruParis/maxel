@@ -1,0 +1,70 @@
+\documentclass{article}
+
+\usepackage{amsmath} % For advanced math formatting
+\usepackage{amssymb} % For additional math symbols
+
+\begin{document}
+
+\centerline{\bf Appendix 1}\par
+Two formulae of Clebsch-Gordan are:
+
+\begin{equation}
+	\begin{aligned}
+		r_x^m s_y^n                 & = \sum \frac{\binom{m}{k} \binom{n}{k}}{\binom{m+n-k+1}{k}}
+		(\overline{rs})^k_{y^{n-k}} (xy)^k,                                                       \\
+		(\overline{rs})^k_{y^{n-k}} & = \sum (-1)^k
+		\frac{\binom{m}{k} \binom{n}{k}}{\binom{m+n}{k}}
+		(rs)^\nu r_x^{m-\nu} s_y^{n-\nu} (xy)^\nu.
+	\end{aligned}
+\end{equation}
+
+I prefer to formulate it in terms of matrices. Assume $m\leq n$.
+Let $A=(a_{ij})$, with $0\leq i,j\leq m$, where
+$$a_{ij}=\cases{
+		0 & if $i>j$,\cr
+		1 & if $i=j$,\cr
+		             {{m-i\choose j-i}{n-i\choose j-i}\over{m+n-i-j+1\choose j-i}} & if
+		$i<j$.\cr}$$
+Similarly, let $B=(b_{ij})$, with the same range of indices, where
+$$b_{ij}=\cases{
+	0&if $i>j$,\cr
+	1& if $i=j$,\cr
+	(-1)^{i+j}{{m-i\choose j-i}{n-i\choose j-i}\over{m+n-2i\choose j-i}}&if
+	$i<j$.\cr}$$
+
+Then Gordan's inversion formula amounts to the non-obvious assertion that
+$B$ is the inverse of $A$.
+
+I want to record one observation I have made about Gordan's
+coefficients. The matrix $A$ is an upper triangular unipotent matrix.
+Let $C=(c_{ij})$ be the logarithm of $A$. Then for $j>i$ we have
+$$C_{ij}=\kappa_{j-i}A_{ij}\prod_{k=0}^{j-i-2}{1\over n+m-2i-k},$$
+where $\kappa=\{\kappa_r\}_{r=1,2,3,\dots}$ is a sequence of integers
+independent of $m,n$. We present the first 20 terms of the sequence
+$\kappa$
+below.
+\halign{\quad$#$\hfil&\quad$#$\hfil\cr
+	r&\kappa_r\cr
+	1&1\cr
+	2&1\cr
+	3&3\cr
+	4&14\cr
+	5&80\cr
+	6&468\cr
+	7&2268\cr
+	8&10224\cr
+	9&313632\cr
+	10&9849600\cr
+	11&21954240\cr
+	12&-8894136960\cr
+	13&-105857556480\cr
+	14&20609598562560\cr
+	15&650835095904000\cr
+	16&-80028503341516800\cr
+	17&-5018759207362252800\cr
+	18&503681435808239001600\cr
+	19&56090762228110443724800\cr
+	20&-4811020757268709294080000\cr}
+
+\end{document}
+\bye
